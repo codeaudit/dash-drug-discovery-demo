@@ -3,6 +3,12 @@ from dash.dependencies import Input, Output
 import dash_html_components as dhc
 import dash_core_components as dcc
 import pandas as pd
+import flask
+import os
+
+server = flask.Flask('drug-discovery')
+app = dash.Dash('drug-discovery', server=server)
+server.secret_key = os.environ.get('secret_key', 'secret')
 
 df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
 
@@ -274,7 +280,7 @@ def make_dash_table( selection ):
         table.append( dhc.Tr( html_row ) )
     return table
 
- FIGURE = scatter_plot_3d()
+FIGURE = scatter_plot_3d()
 STARTING_DRUG = 'Levobupivacaine'
 DRUG_DESCRIPTION = df.loc[df['NAME'] == STARTING_DRUG]['DESC'].iloc[0]
 DRUG_IMG = df.loc[df['NAME'] == STARTING_DRUG]['IMG_URL'].iloc[0]
