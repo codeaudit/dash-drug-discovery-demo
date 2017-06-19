@@ -3,8 +3,8 @@ chardet==3.0.4
 click==6.7
 dash-core-components==0.5.0
 dash-html-components==0.6.0
-dash-renderer==0.7.1
-dash.ly==0.17.1
+dash-renderer==0.7.2
+dash.ly==0.17.3
 decorator==4.0.11
 enum34==1.1.6
 Flask==0.12.2
