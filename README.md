@@ -1,4 +1,4 @@
-** Dash Drug Discovery Demo **
+**Dash Drug Discovery Demo**
 
 This is a demo of the Dash interactive Python framework developed by [Plotly](https://plot.ly/).
 
