@@ -295,7 +295,7 @@ app.layout = html.Div([
     # Row 1: Header and Intro text
 
     html.Div([
-        html.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-stripe.png?token=ARkbw_SPWQTBE7tUfWZz_nA_fpzLt1PPks5ZUpwtwA%3D%3D",
+        html.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-by-plotly-stripe.png?token=ARkbw71c0vCS8Jnau4bHOoc9HRF_lZAtks5ZUrwDwA%3D%3D",
                 style={
                     'height': '80px',
                     'float': 'right'
