@@ -7,10 +7,16 @@ import flask
 import os
 
 server = flask.Flask('drug-discovery')
-app = dash.Dash('drug-discovery', server=server, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
+app = dash.Dash('drug-discovery', server=server) # , url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
 server.secret_key = os.environ.get('secret_key', 'secret')
 
 df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
+
+if 'DYNO' in os.environ:
+    app.scripts.append_script({
+        'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'
+    })
+
 
 def add_markers( figure_data, molecules, plot_type = 'scatter3d' ):
     indices = []
@@ -296,17 +302,49 @@ app.layout = dhc.Div([
     ),
     dhc.Link(
         rel="stylesheet",
-        href="https://codepen.io/plotly/pen/awOwwO.css"
+        href="//fonts.googleapis.com/css?family=Dosis:Medium"
+    ),
+    dhc.Link(
+        rel="stylesheet",
+        href="https://cdn.rawgit.com/plotly/dash-app-stylesheets/master/dash-drug-discovery-demo-stylesheet.css"
     ),
 
     # Row 1: Header and Intro text
 
     dhc.Div([
+        dhc.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-stripe.png?token=ARkbw_SPWQTBE7tUfWZz_nA_fpzLt1PPks5ZUpwtwA%3D%3D",
+                style={
+                    'height': '80px',
+                    'float': 'left'
+                },
+                ),
+        dhc.H2('for',
+                style={
+                    'position': 'relative',
+                    'top': '0px',
+                    'font-family': 'Dosis',
+                    'display': 'inline',
+                    'font-size': '4.0rem',
+                    'color': '#4D637F'
+                }),
+        dhc.H2('Drug Discovery',
+                style={
+                    'position': 'relative',
+                    'top': '0px',
+                    'left': '10px',
+                    'font-family': 'Dosis',
+                    'display': 'inline',
+                    'font-size': '6.0rem',
+                    'color': '#4D637F'
+                }),
+    ], className='row twelve columns', style={'position': 'relative', 'right': '15px'}),
 
+    dhc.Div([
         dhc.Div([
-            dhc.H2('Dash for Drug Discovery'),
-            dhc.P('HOVER over a drug in the graph to the right to see its structure to the left.'),
-            dhc.P('SELECT a drug in the dropdown to add it to the drug candidates at the bottom.'),
+            dhc.Div([
+                dhc.P('HOVER over a drug in the graph to the right to see its structure to the left.'),
+                dhc.P('SELECT a drug in the dropdown to add it to the drug candidates at the bottom.')
+            ], style={'margin-left': '10px'}),
             dcc.Dropdown(id='chem_dropdown',
                         multi=True,
                         value=[ STARTING_DRUG ],
