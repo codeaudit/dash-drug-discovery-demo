@@ -1,6 +1,6 @@
 import dash
 from dash.dependencies import Input, Output
-import dash_html_components as dhc
+import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 import flask
@@ -278,12 +278,12 @@ def make_dash_table( selection ):
         html_row = []
         for i in range(len(row)):
             if i == 0 or i == 6:
-                html_row.append( dhc.Td([ row[i] ]) )
+                html_row.append( html.Td([ row[i] ]) )
             elif i == 1:
-                html_row.append( dhc.Td([ dhc.A( href=row[i], children='Datasheet' )]))
+                html_row.append( html.Td([ html.A( href=row[i], children='Datasheet' )]))
             elif i == 2:
-                html_row.append( dhc.Td([ dhc.Img( src=row[i] )]))
-        table.append( dhc.Tr( html_row ) )
+                html_row.append( html.Td([ html.Img( src=row[i] )]))
+        table.append( html.Tr( html_row ) )
     return table
 
 FIGURE = scatter_plot_3d()
@@ -291,34 +291,17 @@ STARTING_DRUG = 'Levobupivacaine'
 DRUG_DESCRIPTION = df.loc[df['NAME'] == STARTING_DRUG]['DESC'].iloc[0]
 DRUG_IMG = df.loc[df['NAME'] == STARTING_DRUG]['IMG_URL'].iloc[0]
 
-app.layout = dhc.Div([
-    dhc.Link(
-        rel="stylesheet",
-        href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
-    ),
-    dhc.Link(
-        rel="stylesheet",
-        href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
-    ),
-    dhc.Link(
-        rel="stylesheet",
-        href="//fonts.googleapis.com/css?family=Dosis:Medium"
-    ),
-    dhc.Link(
-        rel="stylesheet",
-        href="https://cdn.rawgit.com/plotly/dash-app-stylesheets/master/dash-drug-discovery-demo-stylesheet.css"
-    ),
-
+app.layout = html.Div([
     # Row 1: Header and Intro text
 
-    dhc.Div([
-        dhc.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-stripe.png?token=ARkbw_SPWQTBE7tUfWZz_nA_fpzLt1PPks5ZUpwtwA%3D%3D",
+    html.Div([
+        html.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-stripe.png?token=ARkbw_SPWQTBE7tUfWZz_nA_fpzLt1PPks5ZUpwtwA%3D%3D",
                 style={
                     'height': '80px',
                     'float': 'left'
                 },
                 ),
-        dhc.H2('for',
+        html.H2('for',
                 style={
                     'position': 'relative',
                     'top': '0px',
@@ -327,7 +310,7 @@ app.layout = dhc.Div([
                     'font-size': '4.0rem',
                     'color': '#4D637F'
                 }),
-        dhc.H2('Drug Discovery',
+        html.H2('Drug Discovery',
                 style={
                     'position': 'relative',
                     'top': '0px',
@@ -339,11 +322,11 @@ app.layout = dhc.Div([
                 }),
     ], className='row twelve columns', style={'position': 'relative', 'right': '15px'}),
 
-    dhc.Div([
-        dhc.Div([
-            dhc.Div([
-                dhc.P('HOVER over a drug in the graph to the right to see its structure to the left.'),
-                dhc.P('SELECT a drug in the dropdown to add it to the drug candidates at the bottom.')
+    html.Div([
+        html.Div([
+            html.Div([
+                html.P('HOVER over a drug in the graph to the right to see its structure to the left.'),
+                html.P('SELECT a drug in the dropdown to add it to the drug candidates at the bottom.')
             ], style={'margin-left': '10px'}),
             dcc.Dropdown(id='chem_dropdown',
                         multi=True,
@@ -355,25 +338,25 @@ app.layout = dhc.Div([
 
     # Row 2: Hover Panel and Graph
 
-    dhc.Div([
-        dhc.Div([
+    html.Div([
+        html.Div([
 
-            dhc.Img(id='chem_img', src=DRUG_IMG ),
+            html.Img(id='chem_img', src=DRUG_IMG ),
 
-            dhc.Br(),
+            html.Br(),
 
-            dhc.A(STARTING_DRUG,
+            html.A(STARTING_DRUG,
                   id='chem_name',
                   href="https://www.drugbank.ca/drugs/DB01002",
                   target="_blank"),
 
-            dhc.P(DRUG_DESCRIPTION,
+            html.P(DRUG_DESCRIPTION,
                   id='chem_desc',
                   style=dict( maxHeight='400px', fontSize='12px' )),
 
         ], className='three columns', style=dict(height='300px') ),
 
-        dhc.Div([
+        html.Div([
 
             dcc.RadioItems(
                 id = 'charts_radio',
@@ -396,8 +379,8 @@ app.layout = dhc.Div([
 
     ], className='row' ),
 
-    dhc.Div([
-        dhc.Table( make_dash_table( [STARTING_DRUG] ), id='table-element' )
+    html.Div([
+        html.Table( make_dash_table( [STARTING_DRUG] ), id='table-element' )
     ])
 
 ], className='container')
@@ -477,5 +460,15 @@ def display_molecule(hoverData):
     return description
 
 
+external_css = ["https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css",
+                "//fonts.googleapis.com/css?family=Raleway:400,300,600",
+                "//fonts.googleapis.com/css?family=Dosis:Medium",
+                "https://cdn.rawgit.com/plotly/dash-app-stylesheets/master/dash-drug-discovery-demo-stylesheet.css"]
+
+
+for css in external_css:
+    app.css.append_css({"external_url": css})
+
+
 if __name__ == '__main__':
-    app.run_server();
+    app.run_server()
