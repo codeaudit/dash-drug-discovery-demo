@@ -7,7 +7,7 @@ import flask
 import os
 
 server = flask.Flask('drug-discovery')
-app = dash.Dash('drug-discovery', server=server) #, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
+app = dash.Dash('drug-discovery', server=server, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
 server.secret_key = os.environ.get('secret_key', 'secret')
 
 df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
