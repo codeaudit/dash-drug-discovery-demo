@@ -7,7 +7,7 @@ import flask
 import os
 
 server = flask.Flask('drug-discovery')
-app = dash.Dash('drug-discovery', server=server, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
+app = dash.Dash('drug-discovery', server=server) #, url_base_pathname='/dash/gallery/drug-explorer/', csrf_protect=False)
 server.secret_key = os.environ.get('secret_key', 'secret')
 
 df = pd.read_csv('small_molecule_drugbank.csv').drop(['Unnamed: 0'],axis=1)
@@ -298,13 +298,24 @@ app.layout = html.Div([
         html.Img(src="https://cdn.rawgit.com/plotly/design-assets/master/logo/dash/images/dash-logo-stripe.png?token=ARkbw_SPWQTBE7tUfWZz_nA_fpzLt1PPks5ZUpwtwA%3D%3D",
                 style={
                     'height': '80px',
-                    'float': 'left'
+                    'float': 'right'
                 },
                 ),
+        html.H2('Dash',
+                style={
+                    'position': 'relative',
+                    'top': '0px',
+                    'left': '10px',
+                    'font-family': 'Dosis',
+                    'display': 'inline',
+                    'font-size': '6.0rem',
+                    'color': '#4D637F'
+                }),
         html.H2('for',
                 style={
                     'position': 'relative',
                     'top': '0px',
+                    'left': '20px',
                     'font-family': 'Dosis',
                     'display': 'inline',
                     'font-size': '4.0rem',
@@ -314,7 +325,7 @@ app.layout = html.Div([
                 style={
                     'position': 'relative',
                     'top': '0px',
-                    'left': '10px',
+                    'left': '27px',
                     'font-family': 'Dosis',
                     'display': 'inline',
                     'font-size': '6.0rem',
