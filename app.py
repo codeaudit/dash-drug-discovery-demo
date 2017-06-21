@@ -477,7 +477,7 @@ def display_molecule(hoverData):
 external_css = ["https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css",
                 "//fonts.googleapis.com/css?family=Raleway:400,300,600",
                 "//fonts.googleapis.com/css?family=Dosis:Medium",
-                "https://cdn.rawgit.com/plotly/dash-app-stylesheets/master/dash-drug-discovery-demo-stylesheet.css"]
+                "https://cdn.rawgit.com/plotly/dash-app-stylesheets/0e463810ed36927caf20372b6411690692f94819/dash-drug-discovery-demo-stylesheet.css"]
 
 
 for css in external_css:
