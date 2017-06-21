@@ -10,4 +10,4 @@ To learn more check out our [documentation](https://plot.ly/dash).
 
 The following are screenshots for the app in this repo:
 
-![Alt desc](https://cdn.rawgit.com/plotly/dash-drug-discovery-demo/master/Screenshot/Screenshot.png?token=ARkbw7NxpzJCfLItwTC_andojUiLV65Nks5ZUq3GwA%3D%3D)
+![Alt desc](https://cdn.rawgit.com/plotly/dash-drug-discovery-demo/master/Screenshot/DashforDrugDiscovery.png?token=ARkbw223YZyY9ZejJn82TDoo1ZRYguphks5ZU7hfwA%3D%3D)
